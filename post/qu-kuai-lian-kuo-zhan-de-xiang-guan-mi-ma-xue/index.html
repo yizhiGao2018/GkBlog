@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>区块链扩展的相关密码学 | yizhiGao</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://yizhigao2018.github.io/GkBlog//favicon.ico?v=1561519412545">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://yizhigao2018.github.io/GkBlog//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://yizhigao2018.github.io/GkBlog/">
+        <img src="https://yizhigao2018.github.io/GkBlog//images/avatar.png?v=1561519412545" class="site-logo">
+        <h1 class="site-title">yizhiGao</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/GkBlog" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/GkBlog/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/GkBlog/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://yizhigao2018.github.io/GkBlog/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+        
+          <a href="https://yizhigao2018.github.io/GkBlog/post/test" class="site-nav">
+            测试
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://yizhigao2018.github.io/GkBlog//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">区块链扩展的相关密码学</h2>
+            <div class="post-date">2019-06-26</div>
+            
+            <div class="post-content">
+              <h1 id="环签名">环签名</h1>
+<p>环签名(ring signature)是一种数字签名方案，最初由Rivest等人提出，环签名是一种简化的群签名,环签名中只有环成员没有管理者,不需要环成员间的合作。<br>
+环签名的定义编辑<br>
+假定有 n 个用户，每一个用户  拥有一个公钥  和与之对应的私钥  。环签名是一个能够实现签名者无条匿名的签名方案。</p>
+<h3 id="它主要由下述算法组成">它主要由下述算法组成：</h3>
+<p>1）生成Gen。一个概率多项式时间（PPT）算法，输入为安全参数k，输出为公钥和私钥。这里假定 Gen 为每一个用户 ，产生一个公钥  和私钥  ，并且不同用户的公私钥可能来自不同的公钥体制，如有的来自RSA，有的来自DL。<br>
+2）签名Sign。一个PPT 算法，在输入消息m和 n 个环成员的公钥 L={ y1 , y2 ,⋯, yn }以及其中一个成员的私钥xs 后，对消息 m产生一个签名 R，其中R 中的某个参数根据一定的规则呈环状。<br>
+3）验证Verify。一个确定性算法，在输入(m,R)后，若R 为m 的环签名则输出“True”，否为“False”。<br>
+环签名因为其签名隐含的某个参数按照一定的规则组成环状而得名。而在之后提出的许多方案中不要求签名的构成结构成环形，只要签名的形成满足自发性、匿名性和群特性，也称之为环签名。</p>
+<h3 id="一个好的环签名必须满足以下的安全性要求">一个好的环签名必须满足以下的安全性要求：</h3>
+<p>1）无条件匿名性。攻击者即使非法获取了所有可能签名者的私钥，他能确定出真正的签名者的概率不超过1/n，这里n 为环成员（可能签名者）的个数。<br>
+2）不可伪造性。外部攻击者在不知道任何成员私钥的情况下，即使能够从一个产生环签名的随机预言者那里得到任何消息m 的签名，他成功伪造一个合法签名的概率也是可以忽略的。<br>
+3）环签名具有良好的特性。可以实现签名者的无条件匿名；签名者可以自由指定自己的匿名范围；构成优美的环形逻辑结构；可以实现群签名的主要功能但无需可信第三方或群管理员等。<br>
+环签名是一种特殊的群签名，没有可信中心，没有群的建立过程，对于验证者来说，签名人是完全正确匿名的。环签名提供了一种匿名泄露秘密的巧妙方法。环签名的这种无条件匿名性在对信息需要长期保护的一些特殊环境中非常有用。例如，即使RSA被攻破也必须保护匿名性的场合。</p>
+<h3 id="有以下特性">有以下特性：</h3>
+<p>1）正确性：如果按照正确的签名步骤对消息进行签名，并且在传播过程中签名没被篡改，那么环签名满足签名验证等式。<br>
+2）无条件匿名性：攻击者即使非法获取了所有可能签名者的私钥，他能确定出真正的签名者的概率不超过1/N，这里N为所有可能签名者的个数。<br>
+3）不可伪造性：外部攻击在不知道任何成员私钥的情况下，即使能从一个产生环签名的随机预言者那里得到任何消息m的签名，他成功伪造一个合法签名的概率也是可以忽略的。</p>
+<h1 id="零知识证明">零知识证明</h1>
+<p>零知识证明(Zero—Knowledge Proof)，是由S.Goldwasser、S.Micali及C.Rackoff在20世纪80年代初提出的。它指的是证明者能够在不向验证者提供任何有用的信息的情况下，使验证者相信某个论断是正确的。零知识证明实质上是一种涉及两方或更多方的协议，即两方或更多方完成一项任务所需采取的一系列步骤。证明者向验证者证明并使其相信自己知道或拥有某一消息，但证明过程不能向验证者泄漏任何关于被证明消息的信息。大量事实证明，零知识证明在密码学中非常有用。如果能够将零知识证明用于验证，将可以有效解决许多问题。</p>
+<h3 id="性质">性质</h3>
+<p>在最小泄露协议中零知识证明需要满足下述两个性质。<br>
+(1)正确性。P无法欺骗V。换言之，若P不知道一个定理的证明方法，则P使V相信他会证明定理的概率很低。<br>
+(2)完备性。V无法欺骗P。若P知道一个定理的证明方法，则P使V以绝对优势的概率相信他能证明。<br>
+在零知识协议中，除满足上述两个条件以外，还满足下述的第三个性质。<br>
+(3)零知识性。V无法获取任何额外的知识。<br>
+我们把性质(1)和(2)称为零知识证明的正确性和完备性，而性质(3)称为零知识性。</p>
+<h3 id="属性">属性</h3>
+<p>零知识证明需要满足三个属性。<br>
+1、如果语句为真，诚实的验证者（即：正确遵循协议的验证者）将由诚实的证明者确信这一事实。<br>
+2、如果语句为假，不排除有概率欺骗者可以说服诚实的验证者它是真的。<br>
+3、如果语句为真，证明者的目的就是向验证者证明并使验证者相信自己知道或拥有某一消息，而在证明过程中不可向验证者泄漏任何有关被证明消息的内容。<br>
+零知识证明并不是数学意义上的证明，因为它存在小概率的误差，欺骗者有可能通过虚假陈述骗过证明者。换句话来说，零知识证明是概率证明而不是确定性证明。但是也存在有技术能将误差降低到可以忽略的值。<br>
+零知识的形式定义必须使用一些计算模型，最常见的是图灵机的计算模型。</p>
+<p>备注：一部分知识来源于百度百科</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://yizhigao2018.github.io/GkBlog//post/xiao-hong-mao-de-gu-shi">
+                  <h3 class="post-title">
+                    小红帽的故事
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '685268aa9ddde840252e',
+        clientSecret: 'eaeedaf604f325f5cd1e69438455b79538638a5b',
+        repo: 'GkBlog',
+        owner: 'yizhiGao2018',
+        admin: ['yizhiGao2018'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
